@@ -11,21 +11,30 @@ function setup() {
   const canvas = createCanvas(document.getElementById("root"), WIDTH, HEIGHT);
   ctx = canvas.ctx;
 
-  player = new Player();
-  columnManager = new ColumnManager();
+  initData();
 
   document.addEventListener("keypress", handleKeyPresses);
 }
 
+function initData() {
+  player = new Player();
+  columnManager = new ColumnManager();
+}
+
 function loop() {
-  ctx.fillStyle = "#ddf3f5";
-  ctx.fillRect(0, 0, WIDTH, HEIGHT);
+  if (!player.isDead) {
+    ctx.fillStyle = "#ddf3f5";
+    ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-  player.update();
-  columnManager.update();
+    columnManager.update();
+    columnManager.render(ctx);
 
-  player.render(ctx);
-  columnManager.render(ctx);
+    player.update();
+    player.checkIsDead(columnManager);
+    player.render(ctx);
+  } else {
+    initData();
+  }
 
   requestAnimationFrame(loop);
 }

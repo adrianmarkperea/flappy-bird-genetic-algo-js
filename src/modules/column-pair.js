@@ -10,6 +10,15 @@ class ColumnPair {
     this._calculateCenter();
   }
 
+  hits(player) {
+    return (
+      (player.y <= this.center - this.openingSize / 2 ||
+        player.y + player.size >= this.center + this.openingSize / 2) &&
+      player.x + player.size >= this.x &&
+      player.x <= this.x + this.width
+    );
+  }
+
   _calculateCenter() {
     // We want the center to be constrained to at most one and a half
     // openingSize units away from the top and bottom of the screen
