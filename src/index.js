@@ -1,50 +1,36 @@
 import { createCanvas } from "./modules/canvas";
 import Player from "./modules/player";
+import { createMatrixChromosome } from "./modules/chromosomes";
+import FlappyBird from "./modules/simulation";
 import { WIDTH, HEIGHT } from "./globals";
-import ColumnManager from "./modules/column-manager";
 
 let ctx;
-let player;
-let columnManager;
 
 function setup() {
   const canvas = createCanvas(document.getElementById("root"), WIDTH, HEIGHT);
   ctx = canvas.ctx;
 
-  initData();
+  const individual = new Player();
+  individual.addChromosome(createMatrixChromosome(5, 3));
+  individual.addChromosome(createMatrixChromosome(3, 1));
 
-  document.addEventListener("keypress", handleKeyPresses);
+  const simulationConfig = {
+    prototype: individual,
+    popSize: 10,
+    onUpdate(state) {
+      render(state);
+    },
+  };
+
+  const simulation = new FlappyBird(simulationConfig);
+  simulation.start();
 }
 
-function initData() {
-  player = new Player();
-  columnManager = new ColumnManager();
-}
-
-function loop() {
-  if (!player.isDead) {
-    ctx.fillStyle = "#ddf3f5";
-    ctx.fillRect(0, 0, WIDTH, HEIGHT);
-
-    columnManager.update();
-    columnManager.render(ctx);
-
-    player.update();
-    player.checkIsDead(columnManager.getClosestColumn());
-    player.attemptScore(columnManager.getClosestColumn());
-    player.render(ctx);
-  } else {
-    initData();
-  }
-
-  requestAnimationFrame(loop);
-}
-
-function handleKeyPresses(e) {
-  if (e.code === "Space") {
-    player.ascend();
-  }
+function render({ population, columnManager }) {
+  ctx.fillStyle = "#ddf3f5";
+  ctx.fillRect(0, 0, WIDTH, HEIGHT);
+  columnManager.render(ctx);
+  population.forEach((player) => player.render(ctx));
 }
 
 setup();
-loop();

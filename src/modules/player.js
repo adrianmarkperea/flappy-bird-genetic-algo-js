@@ -1,7 +1,10 @@
+import { Individual } from "@adrianperea/genie.js";
 import { HEIGHT, GRAVITY } from "../globals";
 
-class Player {
+class Player extends Individual {
   constructor() {
+    super();
+
     this.x = 50;
     this.y = HEIGHT / 2;
     this.size = 40;
@@ -10,6 +13,17 @@ class Player {
     this.score = 0;
 
     this.isDead = false;
+  }
+
+  fromTheLikenessOf() {
+    const likeness = new Player();
+    this.dna.forEach((chromosome) => {
+      likeness.addChromosome(chromosome.createRandomCopy());
+    });
+
+    likeness.fitness = 0;
+
+    return likeness;
   }
 
   ascend() {
