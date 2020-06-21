@@ -30,10 +30,13 @@ class FlappyBird extends Simulation {
   update() {
     this.columnManager.update();
 
+    const closestColumn = this.columnManager.getClosestColumn();
     this.population.forEach((player) => {
       player.update();
       player.checkIsDead(this.columnManager.getClosestColumn());
       player.attemptScore(this.columnManager.getClosestColumn());
+
+      player.think(closestColumn);
     });
 
     const isAllDead = this.population.every((player) => player.isDead);

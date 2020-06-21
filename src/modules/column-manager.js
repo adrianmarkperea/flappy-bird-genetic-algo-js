@@ -4,7 +4,7 @@ import ColumnPair from "./column-pair";
 class ColumnManager {
   constructor() {
     this.startX = 300;
-    this.columnGap = 300;
+    this.columnGap = 500;
     this.maxNumOnScreen = Math.ceil(WIDTH / this.columnGap);
 
     this.columnPairs = Array(this.maxNumOnScreen)

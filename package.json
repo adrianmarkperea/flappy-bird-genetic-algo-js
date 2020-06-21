@@ -21,6 +21,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@adrianperea/genie.js": "^1.0.0"
+    "@adrianperea/genie.js": "^1.0.0",
+    "mathjs": "^7.0.1"
   }
 }

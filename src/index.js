@@ -16,7 +16,7 @@ function setup() {
 
   const simulationConfig = {
     prototype: individual,
-    popSize: 10,
+    popSize: 50,
     onUpdate(state) {
       render(state);
     },
@@ -30,7 +30,7 @@ function render({ population, columnManager }) {
   ctx.fillStyle = "#ddf3f5";
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
   columnManager.render(ctx);
-  population.forEach((player) => player.render(ctx));
+  population.forEach((player) => player.render(ctx, true));
 }
 
 setup();
