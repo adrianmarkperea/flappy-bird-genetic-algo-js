@@ -7,6 +7,8 @@ class Player {
     this.size = 40;
     this.velocity = 0;
 
+    this.score = 0;
+
     this.isDead = false;
   }
 
@@ -14,14 +16,16 @@ class Player {
     this.velocity = -8.0;
   }
 
-  checkIsDead(columnManager) {
-    if (
-      this.y <= 0 ||
-      this.y + this.size >= HEIGHT ||
-      columnManager.hits(this)
-    ) {
+  checkIsDead(columnPair) {
+    if (this.y <= 0 || this.y + this.size >= HEIGHT || columnPair.hits(this)) {
       this.isDead = true;
     }
+  }
+
+  attemptScore(columnPair) {
+    if (!columnPair.canScore(this)) return;
+
+    this.score += 1;
   }
 
   update() {

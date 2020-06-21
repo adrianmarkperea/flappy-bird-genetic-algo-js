@@ -8,6 +8,8 @@ class ColumnPair {
 
     this.openingSize = 200;
     this._calculateCenter();
+
+    this.hasScored = false;
   }
 
   hits(player) {
@@ -17,6 +19,23 @@ class ColumnPair {
       player.x + player.size >= this.x &&
       player.x <= this.x + this.width
     );
+  }
+
+  canScore(player) {
+    if (this.hasScored) {
+      return false;
+    }
+
+    if (
+      player.y > this.center - this.openingSize / 2 &&
+      player.y + player.size < this.center + this.openingSize / 2 &&
+      player.x + player.size > this.x + this.width / 2
+    ) {
+      this.hasScored = true;
+      return true;
+    }
+
+    return false;
   }
 
   _calculateCenter() {

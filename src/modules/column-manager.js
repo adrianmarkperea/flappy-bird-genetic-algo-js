@@ -12,8 +12,8 @@ class ColumnManager {
       .map((_, index) => new ColumnPair(this.startX + this.columnGap * index));
   }
 
-  hits(player) {
-    return this.columnPairs[0].hits(player);
+  getClosestColumn() {
+    return this.columnPairs[0];
   }
 
   update() {

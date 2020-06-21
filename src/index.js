@@ -30,7 +30,8 @@ function loop() {
     columnManager.render(ctx);
 
     player.update();
-    player.checkIsDead(columnManager);
+    player.checkIsDead(columnManager.getClosestColumn());
+    player.attemptScore(columnManager.getClosestColumn());
     player.render(ctx);
   } else {
     initData();
