@@ -1,18 +1,18 @@
 import { createCanvas } from "./modules/canvas";
 import Player from "./modules/player";
-import ColumnPair from "./modules/column-pair";
 import { WIDTH, HEIGHT } from "./globals";
+import ColumnManager from "./modules/column-manager";
 
 let ctx;
 let player;
-let columns = [];
+let columnManager;
 
 function setup() {
   const canvas = createCanvas(document.getElementById("root"), WIDTH, HEIGHT);
   ctx = canvas.ctx;
 
   player = new Player();
-  columns.push(new ColumnPair(300));
+  columnManager = new ColumnManager();
 
   document.addEventListener("keypress", handleKeyPresses);
 }
@@ -22,10 +22,10 @@ function loop() {
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
   player.update();
-  columns.forEach((c) => c.update());
+  columnManager.update();
 
   player.render(ctx);
-  columns.forEach((c) => c.render(ctx));
+  columnManager.render(ctx);
 
   requestAnimationFrame(loop);
 }

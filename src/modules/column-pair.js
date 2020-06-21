@@ -20,6 +20,10 @@ class ColumnPair {
     );
   }
 
+  isOffScreen() {
+    return this.x <= -this.width;
+  }
+
   update() {
     this.x += this.speed;
   }
