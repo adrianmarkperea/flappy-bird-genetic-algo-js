@@ -22,6 +22,6 @@
   },
   "dependencies": {
     "@adrianperea/genie.js": "^1.0.0",
-    "mathjs": "^7.0.1"
+    "mathjs": "^7.5.1"
   }
 }
